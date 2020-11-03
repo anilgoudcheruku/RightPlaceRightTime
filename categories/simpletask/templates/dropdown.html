@@ -1,0 +1,8 @@
+
+
+{% for sub_cat in sub_cats %}
+
+    <option value="">{{ sub_cat.subcategory }}</option>
+{% empty %}
+    <option value="">No Sub Categories Added</option>
+{% endfor %}

@@ -1,0 +1,44 @@
+
+<html>
+
+<head>
+      <title>Simple Task in Django with ORM architecture</title>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+  </head>
+<body>
+<nav class="navbar navbar-default">
+  <div class="container-fluid" id="cssmenu">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="{% url 'index' %}">Basic Task</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="{% url 'Home' %}">Home</a></li>
+      <li><a
+              href="{% url 'all_categories' %}">Categories</a>
+
+      </li>
+      <li><a href="{% url 'all_sub_categories' %}">Sub Categories</a></li>
+    </ul>
+  </div>
+</nav>
+
+
+
+<div class="container">
+        {%block content%}
+        <p style="font-size:40px"> Welcome!!!<br/> Please use one of the above
+            option to
+            explore this
+            tool</p>
+        {%endblock%}
+</div>
+</body>
+
+
+</html>

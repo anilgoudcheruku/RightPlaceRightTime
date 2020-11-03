@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block content %}
+<h4>Category and Subcategory Details:</h4>
+
+<div class="form-group row">
+        <div class="col-xs-3" style="width:100%">
+<form method="post" id="TaskForm"
+      data-categories-url="{% url 'ajax_load_categories' %}" novalidate>
+    {% csrf_token %}
+
+
+            <table class="table table-hover">
+    <thead>
+    <tr>
+        <th>Categories</th>
+        <th>Sub Category</th>
+    </tr>
+    </thead>
+    <tbody>
+            <tr>
+                <td>
+<select id="category">
+<option value="">Please Select</option>
+{% for cat in object_list %}
+<option value="{{ cat.id }}">{{ cat.category }}</option>
+{% endfor %}
+</select>
+</td>
+                <td>
+<select id="id_sub_category">
+<option value="">Select Category</option>
+</select></td>
+            </tr>
+    </tbody>
+            </table>
+
+
+
+    <div class="col-xs-3" style="width:100%">
+        <a href="{% url 'create_cat' %}" class="btn btn-primary" role="button">Add New Category</a>
+
+        <a href="{% url 'create_sub_cat' %}" class="btn btn-primary"
+           role="button">Add New Sub Category</a>
+    </div>
+</div>
+</form>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script>
+    $("#category").change(function () {
+      var url = $("#TaskForm").attr("data-categories-url");  // get the url of the `load_cities` view
+      var catId = $(this).val();  // get the selected country ID from the       HTML input
+
+      $.ajax({                       // initialize an AJAX request
+        url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        data: {
+          'category': catId       // add the country id to the GET parameters
+        },
+        success: function (data) {   // `data` is the return of the `load_cities` view function
+          $("#id_sub_category").html(data);  // replace the contents of the city input with the data that came from the server
+        }
+      });
+
+    });
+  </script>
+{% endblock %}

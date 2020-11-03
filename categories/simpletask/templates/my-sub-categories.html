@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Sub categories Details</h1>
+
+<div class="form-group row">
+        <div class="col-xs-3" style="width:100%">
+            <table class="table table-hover">
+    <thead>
+    <tr>
+        <th>Categories</th>
+        <th>Sub Category</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for cat in object_list %}
+
+    <tr><td>{{ cat.category_name }}</td>
+        <td>{{ cat.subcategory }}
+        </td>
+        <td>
+            <a href="{% url 'SubCategoryUpdate' cat.id %}"
+               class="btn btn-primary"
+           role="button">Update</a>
+            <a href="{% url 'SubCategoryDelete' cat.id %}"
+               class="btn btn-danger"
+           role="button">Delete</a>
+        </td>
+
+    </tr>
+{% empty %}
+    <tr><td>No Sub Categories Added yet.</td><td></td></tr>
+{% endfor %}
+    </tbody>
+</table>
+        </div>
+
+    <div class="col-xs-3" style="width:100%">
+        <a href="{% url 'create_sub_cat' %}" class="btn btn-primary"
+           role="button">Add New Sub Category</a>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script>
+    $("#category").change(function () {
+      var url = $("#personForm").attr("data-cities-url");  // get the url of the `load_cities` view
+      var countryId = $(this).val();  // get the selected country ID from the HTML input
+
+      $.ajax({                       // initialize an AJAX request
+        url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        data: {
+          'category': countryId       // add the country id to the GET parameters
+        },
+        success: function (data) {   // `data` is the return of the `load_cities` view function
+          alert(data);
+          $("#id_sub_category").html(data);  // replace the contents of the city input with the data that came from the server
+        }
+      });
+
+    });
+  </script>
+{% endblock %}
